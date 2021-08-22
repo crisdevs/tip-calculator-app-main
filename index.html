@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href = "css/styles.css">
   <title>Frontend Mentor | Tip calculator app</title>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
@@ -13,32 +16,62 @@
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
   </style>
+  <script src="https://kit.fontawesome.com/961c9dd59c.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <h1>Splitter</h1>
+  <form class = "splitter-form">
+    <div class = "input-forms">
+      <div class = "bill">
+        <label class = "input-title" for = "bill">Bill</label>
+        <span class = "error-text">Error</span>
+        <input type = "text" name = "bill" id = "bill-input" class = "text-input" value = "0">
+        <div class = "dollar-sign">$</div>
+      </div>
+      <fieldset>
+        <legend class = "input-title">Select Tip %</legend>
+        
+        <input type = "radio" id = "five-percent" name = "tip" value = "five">  
+        <label for = "five-percent">5%</label>
 
-  Bill
+        <input type = "radio" id = "ten-percent" name = "tip" value = "ten">
+        <label for = "ten-percent">10%</label>
 
-  Select Tip %
-  5%
-  10%
-  15%
-  25%
-  50%
-  Custom
+        <input type = "radio" id = "fifteen-percent" name = "tip" value = "fifteen">
+        <label for = "fifteen-percent">15%</label>
 
-  Number of People
+        <input type = "radio" id = "twenty-five-percent" name = "tip" value = "twenty-five">
+        <label for = "twenty-five-percent">25%</label>
 
-  Tip Amount
-  / person
-
-  Total
-  / person
-
-  Reset
-  
+        <input type = "radio" id = "fifty-percent" name = "tip" value = "fifty">
+        <label for = "fifty-percent">50%</label>
+        
+        <input type = "radio" id = "custom-percent" name = "tip" value = "custom">
+        <label for = "custom-percent">Custom</label>
+      </fieldset>
+      <div class = "num-people">
+        <label class = "input-title" for = "num-people">Number of People</label>
+        <i class="fas fa-user"></i>
+        <span class = "error-text">Error</span>
+        <input type = "text" name = "num-people" id = "num-people" class = "text-input" value = "0">
+      </div>
+  </div>
+  <div class = "total-display">
+    <p>Tip Amount
+      <span>/ person</span>
+    </p>
+    <p class = "num-amount tip">$0.00</p>
+      <p>Total
+        <span>/ person</span>
+      </p>
+      <p class = "num-amount total">$0.00</p>
+      <button type = "button" class = "btn-reset">Reset</button>
+    </div>
+  </form>
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
+    Coded by <a href="#">Cristian Corrales</a>.
   </div>
+  <script src="js/script.js"></script>
 </body>
 </html>
