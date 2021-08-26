@@ -4,6 +4,7 @@ const radioInput = document.querySelectorAll("input[type='radio']");
 const customInput = document.querySelector("#custom-percent");
 const tipDisplay = document.querySelector(".tip");
 const totalDisplay = document.querySelector(".total");
+const resetButton = document.querySelector(".btn-reset");
 
 let billAmount = 0.0;
 let amountOfPeople = 0;
@@ -24,6 +25,8 @@ const setValueToZero = () => {
       }
     });
   }
+  resetButton.disabled = true;
+
 };
 const checkForZero = (targetHTML) => {
   //Variable for error text that will appear when space or letters are entered
@@ -39,6 +42,10 @@ const checkForZero = (targetHTML) => {
     errorInputText.textContent = "Can't be zero";
     //Adds the error styling.
     targetHTML.classList.add("error-border");
+
+    if(numBill < 0){
+      errorInputText.textContent = "Invalid Number.";
+    }
     isOk = false;
     tipDisplay.textContent = `$0.00`;
     totalDisplay.textContent = `$0.00`;
@@ -64,6 +71,7 @@ const calculate = () => {
       if (e.target.name === "bill") {
         billAmount = parseFloat(e.target.value);
         isBillValueEntered = true;
+        resetButton.disabled = false;
         if (
           peoplAmntEntered &&
           isCheckBoxTrue &&
@@ -79,6 +87,7 @@ const calculate = () => {
       } else if (e.target.name === "num-people") {
         amountOfPeople = e.target.value;
         peoplAmntEntered = true;
+        resetButton.disabled = false;
         if (
           isBillValueEntered &&
           isCheckBoxTrue &&
@@ -103,6 +112,7 @@ const calculate = () => {
         tipPercentage = parseFloat(tipText) / 100;
         isCheckBoxTrue = true;
         customInput.value = "";
+        resetButton.disabled = false;
 
         if (
           isBillValueEntered &&
@@ -127,7 +137,8 @@ const calculate = () => {
       }
     }
     tipPercentage = parseFloat(e.target.value) / 100;
-
+    isCheckBoxTrue = true;
+    resetButton.disabled = false;
     if (
       isBillValueEntered &&
       peoplAmntEntered &&
@@ -135,8 +146,7 @@ const calculate = () => {
       checkForZero(billingInputs[1])
     ) {
       CalculatedtipPerPerson = (billAmount * tipPercentage) / amountOfPeople;
-      calculatedTotalPerPerson =
-        billAmount / amountOfPeople + CalculatedtipPerPerson;
+      calculatedTotalPerPerson = billAmount / amountOfPeople + CalculatedtipPerPerson;
       setPerPersonDisplay(CalculatedtipPerPerson, calculatedTotalPerPerson);
     }
   });
@@ -148,8 +158,6 @@ const setPerPersonDisplay = (tipPerPerson, totalPerPerson) => {
 };
 
 const reset = () => {
-  const resetButton = document.querySelector(".btn-reset");
-
   resetButton.addEventListener("click", (e) => {
     for (let i = 0; i < billingInputs.length; i++) {
       billingInputs[i].value = "0";
@@ -172,27 +180,10 @@ const reset = () => {
     isBillValueEntered = false;
     peoplAmntEntered = false;
     isCheckBoxTrue = false;
+    resetButton.disabled = true;
   });
 };
 
-// const customInputAction = ()=>{
-//   customInput.addEventListener("focusin", (e) =>{
-//     e.target.value = "";
-
-//     for(let i = 0; i < radioInput.length; i++){
-//       if(radioInput[i].checked){
-//         radioInput[i].checked = false;
-//       }
-//     }
-//   });
-
-//   customInput.addEventListener("focusout", (e) =>{
-//     if(regExForNum.test(e.target.value)){
-
-//     }
-//   });
-// }
-// customInputAction();
 setValueToZero();
 calculate();
 reset();

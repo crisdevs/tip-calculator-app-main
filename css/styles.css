@@ -8,6 +8,10 @@ body {
   margin: 0;
 }
 
+input{
+  font-family: "Space Mono", monospace;
+}
+
 h1 {
   margin: 30px auto;
   color: hsl(186, 14%, 43%);
@@ -93,7 +97,14 @@ fieldset input[type="radio"]:checked + label {
   font-size: 24px;
   color: hsl(184, 14%, 56%);
 }
+.error-text {
+  color: red;
+  display: none;
+}
 
+.error-border {
+  border: 2px solid red;
+}
 .splitter-form {
   background-color: hsl(0, 0%, 100%);
   width: 100%;
@@ -240,14 +251,6 @@ fieldset input[type="radio"]:checked + label {
 
   .text-input {
     margin-top: 10px;
-  }
-
-  .error-text {
-    color: red;
-    display: none;
-  }
-  .error-border {
-    border: 2px solid red;
   }
 
   .num-people {
