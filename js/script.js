@@ -17,7 +17,7 @@ let peoplAmntEntered = false;
 let isCheckBoxTrue = false;
 let regExForNum = /^\d*\.?\d*$/g;
 
-const setValueToZero = () => {
+const eraseZero = () => {
   for (let i = 0; i < billingInputs.length; i++) {
     billingInputs[i].addEventListener("focusin", (e) => {
       if (e.target.value === "0") {
@@ -25,9 +25,19 @@ const setValueToZero = () => {
       }
     });
   }
+};
+
+const onStart = () =>{
   resetButton.disabled = true;
 
-};
+  for(let i =0; i < billingInputs[i].length; i++){
+    billingInputs[i].addEventListener("keyup", (e)=>{
+      e.target.classList.add("active-text-input");
+      e.target.classList.remove("text-input-grey");
+    });
+  }
+
+}
 const checkForZero = (targetHTML) => {
   //Variable for error text that will appear when space or letters are entered
   const errorInputText = targetHTML.previousElementSibling;
@@ -184,6 +194,7 @@ const reset = () => {
   });
 };
 
-setValueToZero();
+onStart();
+eraseZero();
 calculate();
 reset();
