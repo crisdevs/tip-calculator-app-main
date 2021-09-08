@@ -30,8 +30,8 @@ const eraseZero = () => {
 const onStart = () =>{
   resetButton.disabled = true;
 
-  for(let i =0; i < billingInputs[i].length; i++){
-    billingInputs[i].addEventListener("keyup", (e)=>{
+  for(let i =0; i < billingInputs.length; i++){
+    billingInputs[i].addEventListener("keydown", (e)=>{
       e.target.classList.add("active-text-input");
       e.target.classList.remove("text-input-grey");
     });
@@ -52,6 +52,8 @@ const checkForZero = (targetHTML) => {
     errorInputText.textContent = "Can't be zero";
     //Adds the error styling.
     targetHTML.classList.add("error-border");
+    targetHTML.classList.remove("active-text-input");
+    targetHTML.classList.add("text-input-grey");
 
     if(numBill < 0){
       errorInputText.textContent = "Invalid Number.";
@@ -61,6 +63,8 @@ const checkForZero = (targetHTML) => {
     totalDisplay.textContent = `$0.00`;
   } else if (parseInt(numBill) > 0) {
     targetHTML.classList.remove("error-border");
+    targetHTML.classList.remove("text-input-grey");
+    targetHTML.classList.add("active-text-input");
     errorInputText.style.display = "none";
     isOk = true;
   }
@@ -172,6 +176,8 @@ const reset = () => {
     for (let i = 0; i < billingInputs.length; i++) {
       billingInputs[i].value = "0";
       billingInputs[i].classList.remove("error-border");
+      billingInputs[i].classList.remove("active-text-input");
+      billingInputs[i].classList.add("text-input-grey");
       billingInputs[i].previousElementSibling.style.display = "none";
     }
     for (let i = 0; i < radioInput.length; i++) {
