@@ -146,21 +146,19 @@ const calculate = () => {
 
   customInput.addEventListener("focusout", (e) => {
     for (let i = 0; i < radioInput.length; i++) {
-      if (radioInput[i].checked) {
+      if (radioInput[i].checked && e.target.value.length > 0) {
         radioInput[i].checked = false;
+        isCheckBoxTrue = true;
+        resetButton.disabled = false;
+        tipPercentage = parseFloat(e.target.value) / 100;
+      }
+      else if(radioInput[i].checked === false && e.target.value.length > 0){
+        isCheckBoxTrue = true;
+        resetButton.disabled = false;
+        tipPercentage = parseFloat(e.target.value) / 100;
       }
     }
-    tipPercentage = parseFloat(e.target.value) / 100;
-    console.log(e.target.value.length);
-    if(e.target.value.length > 0){
-    isCheckBoxTrue = true;
-    resetButton.disabled = false;
-    }
-    else{
-      isCheckBoxTrue = false;
-      tipDisplay.textContent = `$0.00`;
-      totalDisplay.textContent = `$0.00`;
-    }
+  
     if (
       isBillValueEntered &&
       isCheckBoxTrue &&
