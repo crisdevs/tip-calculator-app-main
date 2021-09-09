@@ -151,10 +151,19 @@ const calculate = () => {
       }
     }
     tipPercentage = parseFloat(e.target.value) / 100;
+    console.log(e.target.value.length);
+    if(e.target.value.length > 0){
     isCheckBoxTrue = true;
     resetButton.disabled = false;
+    }
+    else{
+      isCheckBoxTrue = false;
+      tipDisplay.textContent = `$0.00`;
+      totalDisplay.textContent = `$0.00`;
+    }
     if (
       isBillValueEntered &&
+      isCheckBoxTrue &&
       peoplAmntEntered &&
       checkForZero(billingInputs[0]) &&
       checkForZero(billingInputs[1])
