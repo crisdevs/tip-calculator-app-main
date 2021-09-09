@@ -1,10 +1,7 @@
 * {
   box-sizing: border-box;
 }
-
 body {
-  background-color: hsl(185, 41%, 84%);
-  font-family: "Space Mono", monospace;
   margin: 0;
 }
 
@@ -22,6 +19,17 @@ h1 {
   letter-spacing: 10px;
   font-size: 22px;
 }
+
+.wrapper{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: hsl(185, 41%, 84%);
+  font-family: "Space Mono", monospace;
+  margin: 0;
+}
+
 
 .text-input {
   border-radius: 5px;
@@ -85,9 +93,9 @@ fieldset input[type="radio"]:checked + label {
   font-weight: bold;
 }
 
-/* .text-input:focus{
-  border:2px solid hsl(172, 67%, 45%);
-} */
+.text-input:focus {
+  border-color: hsl(172, 67%, 45%);
+}
 
 #custom-percent{
     padding: 8px;
@@ -197,6 +205,7 @@ fieldset input[type="radio"]:checked + label {
 
 /* For Desktop */
 @media (min-width: 1024px) {
+
   .splitter-form {
     display: flex;
     position: relative;
