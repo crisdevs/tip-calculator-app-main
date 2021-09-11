@@ -21,7 +21,7 @@ h1 {
 }
 
 .wrapper{
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -33,16 +33,20 @@ h1 {
 
 .text-input {
   border-radius: 5px;
-  border-color: hsl(189, 41%, 97%);
-  border-style: solid;
   height: 35px;
-  background-color: hsl(189, 41%, 97%);
-  text-align: right;
   font-size: 24px;
-  font-weight: bold;
   padding: 18px;
   width: 100%;
   position: relative;
+}
+
+.number-input{
+  background-color:hsl(189, 41%, 97%);
+  color: hsl(183, 100%, 15%);
+  font-weight: bold;
+  text-align: right;
+  border-color: hsl(189, 41%, 97%);
+  border-style: solid;
 }
 
 .active-text-input{
@@ -93,8 +97,9 @@ fieldset input[type="radio"]:checked + label {
   font-weight: bold;
 }
 
-.text-input:focus {
-  border-color: hsl(172, 67%, 45%);
+input[type="number"]:focus {
+  outline: 0;
+  border: 2px solid hsl(172, 67%, 45%);
 }
 
 #custom-percent{
@@ -102,12 +107,7 @@ fieldset input[type="radio"]:checked + label {
     width: 47%;
     border-radius: 7px;
     font-size: 20px;
-    font-weight: bold;
-    text-align: center;
     margin-bottom: 20px;
-    background-color:hsl(189, 41%, 97%);
-    color: hsl(183, 100%, 15%);
-    border: none;
 }
 .dollar-sign {
   position: absolute;
@@ -205,6 +205,9 @@ fieldset input[type="radio"]:checked + label {
 
 /* For Desktop */
 @media (min-width: 1024px) {
+  .wrapper{
+    height: 100vh;
+  }
 
   .splitter-form {
     display: flex;
