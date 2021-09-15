@@ -17,6 +17,13 @@ let peoplAmntEntered = false;
 let isCheckBoxTrue = false;
 let regExForNum = /^\d*\.?\d*$/g;
 
+
+
+ /**
+   * Adds event listener to all text inputs to where when the input is in focused and if the value is zero
+   * the input value will be cleared.
+   *
+   */
 const eraseZero = () => {
   for (let i = 0; i < billingInputs.length; i++) {
     billingInputs[i].addEventListener("focusin", (e) => {
@@ -26,7 +33,11 @@ const eraseZero = () => {
     });
   }
 };
-
+ /**
+   * Disables reset button and adds active and removes default styling to billing 
+   * and amount of people text input.
+   *
+   */
 const onStart = () =>{
   resetButton.disabled = true;
 
@@ -38,12 +49,19 @@ const onStart = () =>{
   }
 
 }
-const checkForZero = (targetHTML) => {
+
+ /**
+   * Checks input to make sure that entered value is valid(Not zero, or negative number).
+   *
+   * @param {HTML} targetHTML - The input to check
+   * @returns {Boolean} isOk - A boolean in which returns based on whether the input value is valid.
+   */
+const checkInput = (targetHTML) => {
   //Variable for error text that will appear when space or letters are entered
   const errorInputText = targetHTML.previousElementSibling;
+  const numBill = parseFloat(targetHTML.value);
   let isOk = true;
-  let numBill = parseFloat(targetHTML.value);
-
+  //If input value is less than 0 or there is nothing entered.
   if (numBill <= 0 || targetHTML.value.length < 1) {
     //if there is not text then the value will be 0
     targetHTML.value = "0";
@@ -54,14 +72,17 @@ const checkForZero = (targetHTML) => {
     targetHTML.classList.add("error-border");
     targetHTML.classList.remove("active-text-input");
     targetHTML.classList.add("text-input-grey");
-
+    //When input value is zero a different error message will appear.
     if(numBill < 0){
       errorInputText.textContent = "Invalid Number.";
     }
     isOk = false;
+    //Sets the tip amount per person and total amount per person text to 0
     tipDisplay.textContent = `$0.00`;
     totalDisplay.textContent = `$0.00`;
-  } else if (parseInt(numBill) > 0) {
+  } //If text value is valid
+  else if (parseInt(numBill) > 0) {
+    //Removes error styling or default styling and adds active input styling.
     targetHTML.classList.remove("error-border");
     targetHTML.classList.remove("text-input-grey");
     targetHTML.classList.add("active-text-input");
@@ -78,51 +99,85 @@ const checkForZero = (targetHTML) => {
 //Calculate total per Person
 //((Bill * tip) + Bill )/ total per Person
 //Fix when the tip Per Person gets calculated.
+
+ /**
+   * Checks input to make sure that entered value is valid(Not zero, or negative number).
+   *
+   * @returns {Boolean} isOk - A boolean in which returns based on whether the input value is valid.
+   */
 const calculate = () => {
+  //For loop to add 'focusout' event on text inputs
   for (let i = 0; i < billingInputs.length; i++) {
+    //Adds 'focusout' event listener to the current index of the collection of input elements
     billingInputs[i].addEventListener("focusout", (e) => {
-      let noError = checkForZero(e.target);
+      //Stores boolean output from the checkInput function where the target input is passed.
+      let noError = checkInput(e.target);
+      //if statement if the target 'name' is equal to bill
       if (e.target.name === "bill") {
+        //stores current bill amount collected from the bill input.
         billAmount = parseFloat(e.target.value);
+        //Boolean value to determine whether anything was entered in the bill input.
         isBillValueEntered = true;
+        //Disables the reset button 
         resetButton.disabled = false;
+        //Checks to see if input asking Number of People is correctly entered and if at least one checkbox
+        //is checked and checks to see if current input is entered correctly.
         if (
           peoplAmntEntered &&
           isCheckBoxTrue &&
           noError &&
-          checkForZero(billingInputs[1])
+          checkInput(billingInputs[1])
         ) {
+          //Calculates tip per person and stores in variable
           CalculatedtipPerPerson =
             (billAmount * tipPercentage) / amountOfPeople;
+          //Calculates total bill per person and stores it in a vairable.
           calculatedTotalPerPerson =
             billAmount / amountOfPeople + CalculatedtipPerPerson;
+          //passes calculated tip per person and total per person to a function in where 
+          //it will display theses calculations.
           setPerPersonDisplay(CalculatedtipPerPerson, calculatedTotalPerPerson);
         }
-      } else if (e.target.name === "num-people") {
+      }//If the target input has a name of num-people 
+      else if (e.target.name === "num-people") {
+        //Retrieves value stored in people amount input
         amountOfPeople = e.target.value;
+        //Sets true to boolean value representing whether a value has been entered.
         peoplAmntEntered = true;
+        //Disables reset button.
         resetButton.disabled = false;
+         //Checks to see if input asking Bill amount is correctly entered and if at least one checkbox
+        //is checked and checks to see if current input is entered correctly.
         if (
           isBillValueEntered &&
           isCheckBoxTrue &&
           noError &&
-          checkForZero(billingInputs[0])
+          checkInput(billingInputs[0])
         ) {
+          //Calculates tip per person and stores in variable
           CalculatedtipPerPerson =
             (billAmount * tipPercentage) / amountOfPeople;
+          //Calculates total bill per person and stores it in a vairable.
           calculatedTotalPerPerson =
             billAmount / amountOfPeople + CalculatedtipPerPerson;
+          //passes calculated tip per person and total per person to a function in where 
+          //it will display theses calculations.
           setPerPersonDisplay(CalculatedtipPerPerson, calculatedTotalPerPerson);
         }
       }
     });
   }
-
+  //For loop that goes through collection of radio inputs
   for (let j = 0; j < radioInput.length; j++) {
+    //Adds event listener to all radio buttons
     radioInput[j].addEventListener("change", (e) => {
+      //If current selected radio button is checked
       if (e.target.checked) {
+        //Get the label text that is associated with the radio button.
         let tipText = e.target.nextElementSibling.textContent;
+        //Remove the percent sign in the string of the label text
         tipText = tipText.replace("%", "");
+        //Covert the label text into a float and calculate to move decimal
         tipPercentage = parseFloat(tipText) / 100;
         isCheckBoxTrue = true;
         customInput.value = "";
@@ -131,8 +186,8 @@ const calculate = () => {
         if (
           isBillValueEntered &&
           peoplAmntEntered &&
-          checkForZero(billingInputs[0]) &&
-          checkForZero(billingInputs[1])
+          checkInput(billingInputs[0]) &&
+          checkInput(billingInputs[1])
         ) {
           CalculatedtipPerPerson =
             (billAmount * tipPercentage) / amountOfPeople;
@@ -163,8 +218,8 @@ const calculate = () => {
       isBillValueEntered &&
       isCheckBoxTrue &&
       peoplAmntEntered &&
-      checkForZero(billingInputs[0]) &&
-      checkForZero(billingInputs[1])
+      checkInput(billingInputs[0]) &&
+      checkInput(billingInputs[1])
     ) {
       CalculatedtipPerPerson = (billAmount * tipPercentage) / amountOfPeople;
       calculatedTotalPerPerson = billAmount / amountOfPeople + CalculatedtipPerPerson;
