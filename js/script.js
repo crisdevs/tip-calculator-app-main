@@ -1,4 +1,3 @@
-const numInputs = document.querySelectorAll("input[type='number']");
 const billingInputs = document.querySelectorAll(".text-input");
 const radioInput = document.querySelectorAll("input[type='radio']");
 const customInput = document.querySelector("#custom-percent");
@@ -208,7 +207,9 @@ const calculate = () => {
   //Event listener for custom percentage input
   customInput.addEventListener("focusout", (e) => {
     //For loop to go through radio buttons
+    console.log(isCheckBoxTrue);
     for (let i = 0; i < radioInput.length; i++) {
+      console.log(radioInput[i].checked);
       //If a radio button has been checked and a value has been enetered for the custom percent input.
       if (radioInput[i].checked && e.target.value.length > 0) {
         //Unchecks the current radio button
@@ -228,6 +229,11 @@ const calculate = () => {
         resetButton.disabled = false;
         //Calculates tip percentage.
         tipPercentage = parseFloat(e.target.value) / 100;
+      }
+      else if(isCheckBoxTrue === false && e.target.value.length === 0){
+        isCheckBoxTrue = false;
+        tipDisplay.textContent = `$0.00`;
+        totalDisplay.textContent = `$0.00`;
       }
     }
     //If bill value is entered, and a value has been picked for the checkbox portion, and amount of people input has a value and both bill and amount of people number inputs are valid.
