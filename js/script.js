@@ -214,11 +214,10 @@
     //Event listener for custom percentage input
     customInput.addEventListener("focusout", (e) => {
       //For loop to go through radio buttons
-      console.log("checkbox equals" + isCheckBoxTrue);
       for (let i = 0; i < radioInput.length; i++) {
-        console.log(radioInput[i].checked);
         //If a radio button has been checked and a value has been enetered for the custom percent input.
         if (radioInput[i].checked && e.target.value.length > 0) {
+          console.log("True 1");
           //Unchecks the current radio button
           radioInput[i].checked = false;
           //Calculates tip percentage.
@@ -227,15 +226,20 @@
         //If no radio button has been checked and a value has been entered in the custom percent input.
         else if (radioInput[i].checked === false && e.target.value.length > 0) {
           //If checkbox was checked/value entered
+          console.log("True 2");
           isCheckBoxTrue = true;
           ////Enables the reset button in case it was the first value entered.
           resetButton.disabled = false;
           //Calculates tip percentage.
           tipPercentage = parseFloat(e.target.value) / 100;
-        } else if (isCheckBoxTrue === false && e.target.value.length === 0) {
-          tipDisplay.textContent = `$0.00`;
-          totalDisplay.textContent = `$0.00`;
+        }else if(radioInput[i].checked && e.target.value.length === 0){
+          isCheckBoxTrue = true;
+        } 
+        else if (radioInput[i].checked === false && e.target.value.length === 0) {
+          console.log("True 3");
+          isCheckBoxTrue = false;
         }
+        console.log(radioInput[i].checked +" " + e.target.value.length + " " + e.target.value);
       }
       //If bill value is entered, and a value has been picked for the checkbox portion, and amount of people input has a value and both bill and amount of people number inputs are valid.
       if (
@@ -253,6 +257,10 @@
         //Passes calculated tip per person and total per person to a function in where
         //it will display theses calculations.
         setPerPersonDisplay(CalculatedtipPerPerson, calculatedTotalPerPerson);
+      }
+      else{
+        tipDisplay.textContent = `$0.00`;
+        totalDisplay.textContent = `$0.00`;
       }
     });
   };
