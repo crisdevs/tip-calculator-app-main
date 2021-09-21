@@ -222,25 +222,19 @@
           radioInput[i].checked = false;
           //Calculates tip percentage.
           tipPercentage = parseFloat(e.target.value) / 100;
-        }
-        //If no radio button has been checked and a value has been entered in the custom percent input.
-        else if (radioInput[i].checked === false && e.target.value.length > 0) {
-          //If checkbox was checked/value entered
-          console.log("True 2");
           isCheckBoxTrue = true;
-          ////Enables the reset button in case it was the first value entered.
-          resetButton.disabled = false;
-          //Calculates tip percentage.
-          tipPercentage = parseFloat(e.target.value) / 100;
-        }else if(radioInput[i].checked && e.target.value.length === 0){
-          isCheckBoxTrue = true;
-        } 
-        else if (radioInput[i].checked === false && e.target.value.length === 0) {
-          console.log("True 3");
-          isCheckBoxTrue = false;
         }
-        console.log(radioInput[i].checked +" " + e.target.value.length + " " + e.target.value);
       }
+
+      if(document.querySelectorAll("input[type='radio']:checked").length === 0 && e.target.value.length === 0){
+        isCheckBoxTrue = false;
+      }
+      else if(document.querySelectorAll("input[type='radio']:checked").length === 0 && e.target.value.length > 0){
+         //Calculates tip percentage.
+         tipPercentage = parseFloat(e.target.value) / 100;
+         isCheckBoxTrue = true;
+      }
+
       //If bill value is entered, and a value has been picked for the checkbox portion, and amount of people input has a value and both bill and amount of people number inputs are valid.
       if (
         isBillValueEntered &&
