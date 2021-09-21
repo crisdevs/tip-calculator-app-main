@@ -9,28 +9,19 @@
   let billAmount = 0.0;
   let amountOfPeople = 0;
   let tipPercentage = 0.0;
-  let CalculatedtipPerPerson = 0.0;
+  let calculatedTipPerPerson = 0.0;
   let calculatedTotalPerPerson = 0.0;
-  let customTipPercent = 0;
   let isBillValueEntered = false;
   let peoplAmntEntered = false;
   let isCheckBoxTrue = false;
-  let regExForNum = /^\d*\.?\d*$/g;
 
-  /**
-   * Adds event listener to all text inputs to where when the input is in focused and if the value is zero
-   * the input value will be cleared.
-   *
-   */
-  const eraseZero = () => {
-    for (let i = 0; i < billingInputs.length; i++) {
-      billingInputs[i].addEventListener("focusin", (e) => {
-        if (e.target.value === "0") {
-          e.target.value = "";
-        }
-      });
-    }
-  };
+  for (let i = 0; i < billingInputs.length; i++) {
+    billingInputs[i].addEventListener("focusin", (e) => {
+      if (e.target.value === "0") {
+        e.target.value = "";
+      }
+    });
+  }
   /**
    * Disables reset button and adds active and removes default styling to billing
    * and amount of people text input.
@@ -54,18 +45,16 @@
    * @returns {Boolean} isOk - A boolean in which returns based on whether the input value is valid.
    */
   const checkInput = (targetHTML) => {
-    //Variable for error text that will appear when space or letters are entered
     const errorInputText = targetHTML.previousElementSibling;
     const numBill = parseFloat(targetHTML.value);
     let isOk = true;
-    //If input value is less than 0 or there is nothing entered.
+    //If input value is less than or equal to 0 or there is nothing entered.
     if (numBill <= 0 || targetHTML.value.length < 1) {
-      //if there is not text then the value will be 0
       targetHTML.value = "0";
       //Make the error text appear
       errorInputText.style.display = "inherit";
       errorInputText.textContent = "Can't be zero";
-      //Adds the error styling.
+      //Adds the error styling classes
       targetHTML.classList.add("error-border");
       targetHTML.classList.remove("active-text-input");
       targetHTML.classList.add("text-input-grey");
@@ -126,15 +115,15 @@
             checkInput(billingInputs[1])
           ) {
             //Calculates tip per person and stores in variable
-            CalculatedtipPerPerson =
+            calculatedTipPerPerson =
               (billAmount * tipPercentage) / amountOfPeople;
             //Calculates total bill per person and stores it in a vairable.
             calculatedTotalPerPerson =
-              billAmount / amountOfPeople + CalculatedtipPerPerson;
+              billAmount / amountOfPeople + calculatedTipPerPerson;
             //Passes calculated tip per person and total per person to a function in where
             //it will display theses calculations.
             setPerPersonDisplay(
-              CalculatedtipPerPerson,
+              calculatedTipPerPerson,
               calculatedTotalPerPerson
             );
           }
@@ -155,15 +144,15 @@
             checkInput(billingInputs[0])
           ) {
             //Calculates tip per person and stores in variable
-            CalculatedtipPerPerson =
+            calculatedTipPerPerson =
               (billAmount * tipPercentage) / amountOfPeople;
             //Calculates total bill per person and stores it in a vairable.
             calculatedTotalPerPerson =
-              billAmount / amountOfPeople + CalculatedtipPerPerson;
+              billAmount / amountOfPeople + calculatedTipPerPerson;
             //Passes calculated tip per person and total per person to a function in where
             //it will display theses calculations.
             setPerPersonDisplay(
-              CalculatedtipPerPerson,
+              calculatedTipPerPerson,
               calculatedTotalPerPerson
             );
           }
@@ -196,15 +185,15 @@
             checkInput(billingInputs[1])
           ) {
             //Calculates tip per person and stores in variable
-            CalculatedtipPerPerson =
+            calculatedTipPerPerson =
               (billAmount * tipPercentage) / amountOfPeople;
             //Calculates total bill per person and stores it in a vairable.
             calculatedTotalPerPerson =
-              billAmount / amountOfPeople + CalculatedtipPerPerson;
+              billAmount / amountOfPeople + calculatedTipPerPerson;
             //Passes calculated tip per person and total per person to a function in where
             //it will display theses calculations.
             setPerPersonDisplay(
-              CalculatedtipPerPerson,
+              calculatedTipPerPerson,
               calculatedTotalPerPerson
             );
           }
@@ -244,13 +233,13 @@
         checkInput(billingInputs[1])
       ) {
         //Calculates tip per person and stores in variable
-        CalculatedtipPerPerson = (billAmount * tipPercentage) / amountOfPeople;
+        calculatedTipPerPerson = (billAmount * tipPercentage) / amountOfPeople;
         //Calculates total bill per person and stores it in a vairable.
         calculatedTotalPerPerson =
-          billAmount / amountOfPeople + CalculatedtipPerPerson;
+          billAmount / amountOfPeople + calculatedTipPerPerson;
         //Passes calculated tip per person and total per person to a function in where
         //it will display theses calculations.
-        setPerPersonDisplay(CalculatedtipPerPerson, calculatedTotalPerPerson);
+        setPerPersonDisplay(calculatedTipPerPerson, calculatedTotalPerPerson);
       }
       else{
         tipDisplay.textContent = `$0.00`;
@@ -294,7 +283,7 @@
       billAmount = 0.0;
       amountOfPeople = 0;
       tipPercentage = 0.0;
-      CalculatedtipPerPerson = 0.0;
+      calculatedTipPerPerson = 0.0;
       calculatedTotalPerPerson = 0.0;
       isBillValueEntered = false;
       peoplAmntEntered = false;
@@ -304,7 +293,7 @@
   };
   //Function calls
   onStart();
-  eraseZero();
+  // eraseZero();
   calculate();
   reset();
 })();
