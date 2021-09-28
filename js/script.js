@@ -193,14 +193,14 @@
     billingInputs[i].addEventListener("focusout", (e) => {
       //Stores boolean output from the checkInput function where the target input is passed.
       let noError = checkInput(e.target);
+      //Enables the reset button in case it was the first value entered.
+      resetButton.disabled = false;
       //if statement if the target 'name' is equal to bill
       if (e.target.name === "bill" && noError) {
         //stores current bill amount collected from the bill input.
         billAmount = parseFloat(e.target.value);
         //Boolean value to determine whether anything was entered in the bill input.
         isBillValueEntered = true;
-        //Enables the reset button in case it was the first value entered.
-        resetButton.disabled = false;
         //Checks to see if input asking Number of People is correctly entered and if at least one checkbox
         //is checked and checks to see if current input is entered correctly.
         if (
