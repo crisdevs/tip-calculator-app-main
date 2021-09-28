@@ -40,7 +40,7 @@
     const numBill = parseFloat(targetHTML.value);
     let isOk = true;
     //If input value is less than or equal to 0 or there is nothing entered.
-    if (numBill <= 0 || targetHTML.value.length < 1) {
+    if (numBill === 0 || targetHTML.value.length < 1) {
       targetHTML.value = "0";
       //Make the error text appear
       errorInputText.style.display = "inherit";
@@ -74,8 +74,6 @@
 
   //Calculate total per Person
   //((Bill * tip) + Bill )/ total per Person
-  //Fix when the tip Per Person gets calculated.
-
   const calculateTotalPerPerson = () => {
     return billAmount / amountOfPeople + calculateTipPerPerson();
   };
@@ -123,6 +121,7 @@
   };
   //Function calls
   onStart();
+
   //To prevent certain characters to be entered into the inputs.
   for (let i = 0; i < numInputs.length; i++) {
     numInputs[i].addEventListener("keydown", (e) => {
@@ -141,14 +140,12 @@
         const checkedRadioButtons = document.querySelectorAll(
           "input[type='radio']:checked"
         );
-
         //For loop to go through radio buttons
-        for (let i = 0; i < radioInput.length; i++) {
+        for (let i = 0; i < checkedRadioButtons.length; i++) {
           //If a radio button has been checked and a value has been enetered for the custom percent input.
-          if (radioInput[i].checked && e.target.value.length > 0) {
-            console.log("True 1");
+          if (checkedRadioButtons.length > 0 && e.target.value.length > 0) {
             //Unchecks the current radio button
-            radioInput[i].checked = false;
+            checkedRadioButtons[0].checked = false;
             //Calculates tip percentage.
             tipPercentage = parseFloat(e.target.value) / 100;
             isCheckBoxTrue = true;
@@ -275,55 +272,6 @@
       }
     });
   }
-  //Event listener for custom percentage input
-  // customInput.addEventListener("focusout", (e) => {
-  //   const checkedRadioButtons = document.querySelectorAll("input[type='radio']:checked");
-
-  //   //For loop to go through radio buttons
-  //   for (let i = 0; i < radioInput.length; i++) {
-  //     //If a radio button has been checked and a value has been enetered for the custom percent input.
-  //     if (radioInput[i].checked && e.target.value.length > 0) {
-  //       console.log("True 1");
-  //       //Unchecks the current radio button
-  //       radioInput[i].checked = false;
-  //       //Calculates tip percentage.
-  //       tipPercentage = parseFloat(e.target.value) / 100;
-  //       isCheckBoxTrue = true;
-  //     }
-  //   }
-
-  //   if (
-  //     checkedRadioButtons.length === 0 &&
-  //     e.target.value.length === 0
-  //   ) {
-  //     isCheckBoxTrue = false;
-  //   } else if (
-  //     checkedRadioButtons.length === 0 &&
-  //     e.target.value.length > 0
-  //   ) {
-  //     //Calculates tip percentage.
-  //     tipPercentage = parseFloat(e.target.value) / 100;
-  //     isCheckBoxTrue = true;
-  //   }
-
-  //   //If bill value is entered, and a value has been picked for the checkbox portion, and amount of people input has a value and both bill and amount of people number inputs are valid.
-  //   if (
-  //     isBillValueEntered &&
-  //     isCheckBoxTrue &&
-  //     peoplAmntEntered &&
-  //     checkInput(billingInputs[0]) &&
-  //     checkInput(billingInputs[1])
-  //   ) {
-  //     //Passes calculated tip per person and total per person to a function in where
-  //     //it will display theses calculations.
-  //     setPerPersonDisplay(calculateTipPerPerson(), calculateTotalPerPerson());
-  //   } else {
-  //     tipDisplay.textContent = `$0.00`;
-  //     totalDisplay.textContent = `$0.00`;
-  //   }
-  // });
-  reset();
-
   for (let i = 0; i < billingInputs.length; i++) {
     billingInputs[i].addEventListener("focusin", (e) => {
       if (e.target.value === "0") {
@@ -331,4 +279,6 @@
       }
     });
   }
+
+  reset();
 })();
