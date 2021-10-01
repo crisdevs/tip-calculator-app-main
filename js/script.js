@@ -65,15 +65,16 @@
 
     return isOk;
   };
-  //Calculate Tip Per Person
-  //Bill * tip / amount of people
-
+  
+  /**
+   *Calculate Tip Per Person Calculation: Bill * tip / amount of people
+   */
   const calculateTipPerPerson = () => {
     return (billAmount * tipPercentage) / amountOfPeople;
   };
-
-  //Calculate total per Person
-  //((Bill * tip) + Bill )/ total per Person
+/**
+   * Calculates total per Person Calculation: ((Bill * tip) + Bill )/ total per Person
+   */
   const calculateTotalPerPerson = () => {
     return billAmount / amountOfPeople + calculateTipPerPerson();
   };
@@ -95,19 +96,22 @@
    */
   const reset = () => {
     resetButton.addEventListener("click", (e) => {
-      for (let i = 0; i < billingInputs.length; i++) {
-        billingInputs[i].value = "0";
-        billingInputs[i].classList.remove("error-border");
-        billingInputs[i].classList.remove("active-text-input");
-        billingInputs[i].classList.add("text-input-grey");
-        billingInputs[i].previousElementSibling.style.display = "none";
+      for (let i = 0; i < numInputs.length; i++) {
+        if(numInputs[i].name === "num-people" || numInputs[i].name === "bill"){
+        numInputs[i].value = "0";
+        numInputs[i].classList.remove("error-border");
+        numInputs[i].classList.remove("active-text-input");
+        numInputs[i].classList.add("text-input-grey");
+        numInputs[i].previousElementSibling.style.display = "none";
       }
+      else{
+        numInputs[i].value = "";
+      }
+    }
       for (let i = 0; i < radioInput.length; i++) {
         radioInput[i].checked = false;
       }
-
-      customInput.value = "";
-
+      
       tipDisplay.textContent = `$0.00`;
       totalDisplay.textContent = `$0.00`;
       billAmount = 0.0;
@@ -119,10 +123,7 @@
       resetButton.disabled = true;
     });
   };
-  //Function calls
-  onStart();
 
-  console.log(numInputs);
   for (let i = 0; i < numInputs.length; i++) {
     //Event listener to prevent invalid input from being typed.
     numInputs[i].addEventListener("keydown", (e) => {
@@ -136,10 +137,50 @@
         }
       }
     });
+    console.log(numInputs[0]);
+    numInputs[i].addEventListener("focusout", (e) => {
+      //For Bill and Number of People Inputs
+      if (e.target.name === "bill" || e.target.name === "num-people") {
+        //Checks inputs and displays error styling if needed.
+        let noError = checkInput(e.target);
 
-    //For custom tip input
-    if (numInputs[i].name === "tip") {
-      numInputs[i].addEventListener("focusout", (e) => {
+        resetButton.disabled = false;
+
+        if (e.target.name === "bill" && noError) {
+          billAmount = parseFloat(e.target.value);
+          isBillValueEntered = true;
+          //Checks to see if other inputs are correctly entered
+          if (
+            peoplAmntEntered &&
+            isCheckBoxTrue &&
+            checkInput(numInputs[2])
+          ) {
+            //Display Tip Amount per person and total amount per person.
+            setPerPersonDisplay(
+              calculateTipPerPerson(),
+              calculateTotalPerPerson()
+            );
+          }
+        } else if (e.target.name === "num-people" && noError) {
+          amountOfPeople = e.target.value;
+          peoplAmntEntered = true;
+          resetButton.disabled = false;
+          //Checks to see if other inputs are correctly entered
+          if (
+            isBillValueEntered &&
+            isCheckBoxTrue &&
+            checkInput(numInputs[0])
+          ) {
+            //Display Tip Amount per person and total amount per person.
+            setPerPersonDisplay(
+              calculateTipPerPerson(),
+              calculateTotalPerPerson()
+            );
+          }
+        }
+      }
+      //For custom tip input
+      if (numInputs[i].name === "tip") {
         const checkedRadioButtons = document.querySelectorAll(
           "input[type='radio']:checked"
         );
@@ -155,7 +196,7 @@
         //If there are no radio buttons checked and no value in custom input.
         if (checkedRadioButtons.length === 0 && e.target.value.length === 0) {
           isCheckBoxTrue = false;
-        //If there is no radio buttons checked but a value is entered for the custom tip input.
+          //If there is no radio buttons checked but a value is entered for the custom tip input.
         } else if (
           checkedRadioButtons.length === 0 &&
           e.target.value.length > 0
@@ -171,11 +212,10 @@
           isBillValueEntered &&
           isCheckBoxTrue &&
           peoplAmntEntered &&
-          checkInput(billingInputs[0]) &&
-          checkInput(billingInputs[1])
+          checkInput(numInputs[0]) &&
+          checkInput(numInputs[2])
         ) {
-          //Passes calculated tip per person and total per person to a function in where
-          //it will display theses calculations.
+         //Display Tip Amount per person and total amount per person.
           setPerPersonDisplay(
             calculateTipPerPerson(),
             calculateTotalPerPerson()
@@ -184,67 +224,13 @@
           tipDisplay.textContent = `$0.00`;
           totalDisplay.textContent = `$0.00`;
         }
-      });
-    }
-  }
-  //For loop to add 'focusout' event on text inputs
-  for (let i = 0; i < billingInputs.length; i++) {
-    //Adds 'focusout' event listener to the current index of the collection of input elements
-    billingInputs[i].addEventListener("focusout", (e) => {
-      //Stores boolean output from the checkInput function where the target input is passed.
-      let noError = checkInput(e.target);
-      //Enables the reset button in case it was the first value entered.
-      resetButton.disabled = false;
-      //if statement if the target 'name' is equal to bill
-      if (e.target.name === "bill" && noError) {
-        //stores current bill amount collected from the bill input.
-        billAmount = parseFloat(e.target.value);
-        //Boolean value to determine whether anything was entered in the bill input.
-        isBillValueEntered = true;
-        //Checks to see if input asking Number of People is correctly entered and if at least one checkbox
-        //is checked and checks to see if current input is entered correctly.
-        if (
-          peoplAmntEntered &&
-          isCheckBoxTrue &&
-          checkInput(billingInputs[1])
-        ) {
-          //Passes calculated tip per person and total per person to a function in where
-          //it will display theses calculations.
-          setPerPersonDisplay(
-            calculateTipPerPerson(),
-            calculateTotalPerPerson()
-          );
-        }
-      } //If the target input has a name of num-people
-      else if (e.target.name === "num-people" && noError) {
-        //Retrieves value stored in people amount input
-        amountOfPeople = e.target.value;
-        //Sets true to boolean value representing whether a value has been entered.
-        peoplAmntEntered = true;
-        //Enables the reset button in case it was the first value entered.
-        resetButton.disabled = false;
-        //Checks to see if input asking Bill amount is correctly entered and if at least one checkbox
-        //is checked and checks to see if current input is entered correctly.
-        if (
-          isBillValueEntered &&
-          isCheckBoxTrue &&
-          checkInput(billingInputs[0])
-        ) {
-          //Passes calculated tip per person and total per person to a function in where
-          //it will display theses calculations.
-          setPerPersonDisplay(
-            calculateTipPerPerson(),
-            calculateTotalPerPerson()
-          );
-        }
       }
     });
   }
-  //For loop that goes through collection of radio inputs
+
+  //For Radio Buttons
   for (let j = 0; j < radioInput.length; j++) {
-    //Adds event listener to all radio buttons
     radioInput[j].addEventListener("change", (e) => {
-      //If current selected radio button is checked
       if (e.target.checked) {
         //Get the label text that is associated with the radio button.
         let tipText = e.target.nextElementSibling.textContent;
@@ -252,21 +238,18 @@
         tipText = tipText.replace("%", "");
         //Covert the label text into a float and calculate to move decimal to appropriate place for calculations
         tipPercentage = parseFloat(tipText) / 100;
-        //Set variable to true that determines whether checkbox has been entered
         isCheckBoxTrue = true;
         //Sets the custom percentage text box blank when a check box is checked.
         customInput.value = "";
-        //Enables the reset button in case it was the first value entered.
         resetButton.disabled = false;
-        //If Bill input has a value entered, if amount of people input has a value entered and checks both of those inputs that they have a valid value entered.
+        //If other inputs are correctly filled in
         if (
           isBillValueEntered &&
           peoplAmntEntered &&
-          checkInput(billingInputs[0]) &&
-          checkInput(billingInputs[1])
+          checkInput(numInputs[0]) &&
+          checkInput(numInputs[2])
         ) {
-          //Passes calculated tip per person and total per person to a function in where
-          //it will display theses calculations.
+          //Display Tip Amount per person and total amount per person.
           setPerPersonDisplay(
             calculateTipPerPerson(),
             calculateTotalPerPerson()
@@ -282,6 +265,7 @@
       }
     });
   }
-
+  //Function calls
+  onStart();
   reset();
 })();
