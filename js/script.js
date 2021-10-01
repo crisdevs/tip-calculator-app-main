@@ -122,8 +122,9 @@
   //Function calls
   onStart();
 
-  //To prevent certain characters to be entered into the inputs.
+  console.log(numInputs);
   for (let i = 0; i < numInputs.length; i++) {
+    //Event listener to prevent invalid input from being typed.
     numInputs[i].addEventListener("keydown", (e) => {
       if (e.target.name === "num-people") {
         if (e.key === "-" || e.key === "e" || e.key === ".") {
@@ -135,25 +136,26 @@
         }
       }
     });
+
+    //For custom tip input
     if (numInputs[i].name === "tip") {
       numInputs[i].addEventListener("focusout", (e) => {
         const checkedRadioButtons = document.querySelectorAll(
           "input[type='radio']:checked"
         );
-        //For loop to go through radio buttons
+        //For loop to go through checked radio buttons
         for (let i = 0; i < checkedRadioButtons.length; i++) {
           //If a radio button has been checked and a value has been enetered for the custom percent input.
           if (checkedRadioButtons.length > 0 && e.target.value.length > 0) {
-            //Unchecks the current radio button
             checkedRadioButtons[0].checked = false;
-            //Calculates tip percentage.
             tipPercentage = parseFloat(e.target.value) / 100;
             isCheckBoxTrue = true;
           }
         }
-
+        //If there are no radio buttons checked and no value in custom input.
         if (checkedRadioButtons.length === 0 && e.target.value.length === 0) {
           isCheckBoxTrue = false;
+        //If there is no radio buttons checked but a value is entered for the custom tip input.
         } else if (
           checkedRadioButtons.length === 0 &&
           e.target.value.length > 0
@@ -161,9 +163,10 @@
           //Calculates tip percentage.
           tipPercentage = parseFloat(e.target.value) / 100;
           isCheckBoxTrue = true;
+          resetButton.disabled = false;
         }
 
-        //If bill value is entered, and a value has been picked for the checkbox portion, and amount of people input has a value and both bill and amount of people number inputs are valid.
+        //If other inputs are correctly filled in
         if (
           isBillValueEntered &&
           isCheckBoxTrue &&
