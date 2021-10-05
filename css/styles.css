@@ -32,49 +32,11 @@ h1 {
   font-size: 22px;
 }
 
-.wrapper{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  background-color: hsl(185, 41%, 84%);
-  font-family: "Space Mono", monospace;
-  margin: 0;
-}
-
-
-.text-input {
-  border-radius: 5px;
-  height: 35px;
-  font-size: 24px;
-  padding: 18px;
-  width: 100%;
-  position: relative;
-}
-
-.number-input{
-  background-color:hsl(189, 41%, 97%);
-  color: hsl(183, 100%, 15%);
-  font-weight: bold;
-  text-align: right;
-  border-color: hsl(189, 41%, 97%);
-  border-style: solid;
-}
-
-.active-text-input{
-  color: hsl(183, 100%, 15%);
-}
-
-.text-input-grey{
-  color:rgba(0, 73, 77, 0.5); 
-}
-
 fieldset {
   padding: 0;
   border: none;
   padding-bottom: 50px;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -114,6 +76,42 @@ input[type="number"]:focus {
   border: 2px solid hsl(172, 67%, 45%);
 }
 
+.wrapper{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: hsl(185, 41%, 84%);
+  font-family: "Space Mono", monospace;
+  /* margin: 0; */
+}
+
+.text-input {
+  border-radius: 5px;
+  height: 35px;
+  font-size: 24px;
+  padding: 18px;
+  width: 100%;
+  /* position: relative; */
+}
+
+.number-input{
+  background-color:hsl(189, 41%, 97%);
+  color: hsl(183, 100%, 15%);
+  font-weight: bold;
+  text-align: right;
+  border-color: hsl(189, 41%, 97%);
+  border-style: solid;
+}
+
+.active-text-input{
+  color: hsl(183, 100%, 15%);
+}
+
+.text-input-grey{
+  color:rgba(0, 73, 77, 0.5); 
+}
+
 #custom-percent{
     padding: 8px;
     width: 47%;
@@ -121,13 +119,20 @@ input[type="number"]:focus {
     font-size: 20px;
     margin-bottom: 20px;
 }
-.dollar-sign {
+.fas{
   position: absolute;
-  top: 190px;
-  left: 30px;
-  font-size: 24px;
+  left: 17px;
+  font-size: 18px;
   color: hsl(184, 14%, 56%);
 }
+.fa-dollar-sign {
+  top: 74px;
+}
+
+.fa-user {
+  top: 34px;
+}
+
 .error-text {
   color: red;
   display: none;
@@ -157,15 +162,11 @@ input[type="number"]:focus {
   flex-direction: column;
   padding-top: 20px;
   padding-bottom: 20px;
+  position: relative;
 }
 
-.fa-user {
-  position: absolute;
-  left: 30px;
-  top: 583px;
-  font-size: 15px;
-  color: hsl(184, 14%, 56%);
-  z-index: 1;
+.num-people{
+  position: relative;
 }
 
 .total-display {
@@ -280,14 +281,12 @@ input[type="number"]:focus {
     margin: 0;
   }
 
-  .fa-user {
-    left: 60px;
-    top: 368px;
+ .fa-user {
+    top: 44px;
   }
 
-  .dollar-sign {
-    left: 60px;
-    top: 84px;
+  .fa-dollar-sign {
+    top: 43px;
   }
 
   .text-input {
