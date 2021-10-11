@@ -86,8 +86,9 @@
    */
 
   const setPerPersonDisplay = (tipPerPerson, totalPerPerson) => {
-    tipDisplay.textContent = `$${tipPerPerson.toFixed(2)}`;
-    totalDisplay.textContent = `$${totalPerPerson.toFixed(2)}`;
+    //Converts the numbers to strings then returns the match and sets the matched numbers to the display texts.
+    tipDisplay.textContent = `$${tipPerPerson.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}`;
+    totalDisplay.textContent = `$${totalPerPerson.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}`;
   };
 
   /**
@@ -137,7 +138,6 @@
         }
       }
     });
-    console.log(numInputs[0]);
     numInputs[i].addEventListener("focusout", (e) => {
       //For Bill and Number of People Inputs
       if (e.target.name === "bill" || e.target.name === "num-people") {
