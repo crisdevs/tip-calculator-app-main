@@ -82,7 +82,13 @@ input[type="number"]:focus {
   justify-content: space-around;
   background-color: hsl(185, 41%, 84%);
   font-family: "Space Mono", monospace;
-  /* margin: 0; */
+}
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
 }
 
 .text-input {
@@ -91,7 +97,6 @@ input[type="number"]:focus {
   font-size: 24px;
   padding: 18px;
   width: 100%;
-  /* position: relative; */
 }
 
 .number-input{
@@ -129,7 +134,7 @@ input[type="number"]:focus {
 }
 
 .fa-user {
-  top: 34px;
+  top: 54px;
 }
 
 .error-text {
@@ -158,14 +163,6 @@ input[type="number"]:focus {
   font-weight: bold;
 }
 
-/* .bill {
-  display: flex;
-  flex-direction: column;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  position: relative;
-} */
-
 .bill{
   display: flex;
   flex-wrap: wrap;
@@ -174,8 +171,6 @@ input[type="number"]:focus {
   padding-bottom: 20px;
   position: relative;
 }
-
-
 
 .num-people{
   position: relative;
@@ -316,6 +311,10 @@ input[type="number"]:focus {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+
+  .error-text{
+    font-size: 18px;
   }
   fieldset {
     padding-bottom: 0;
