@@ -46,7 +46,7 @@ Users should be able to:
 ### What I learned
 
 This was a tough project for me at this time but happy to say I finally got it working. I learned how to create a project from scratch without any tutorial guiding me. It was definitely a scarier process but one where I am glad I was able to overcome. 
-
+####Javascript
 While doing this project I also came across a couple of articles on why global variables are bad practices which in short is because you can accidentally change the value of a variable that you were not trying to change in the first place and break a part of your code. So to combat this I wrapped my Javascript in an IIFE in where I learned that an IIFE (Immediately Invoked Function Expression) is a function that is called as soon as you define it. Now that my code is in the IIFE, the variables and functions in the IIFE can't be accessed outside the IIFE. 
 
 Here you can find the documentation for IIFE: https://developer.mozilla.org/en-US/docs/Glossary/IIFE
@@ -77,7 +77,7 @@ I should say that this is inside of a for loop and numInputs holds a collection 
           />
 ```
 
-
+####CSS
 Before this project, I haven't written CSS in a couple of months. This was a nice refresher and I learned this really cool trick with the radio buttons and the label associated.
 ```css
 fieldset input[type="radio"]:checked + label, fieldset input[type="radio"]:hover + label {
