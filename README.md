@@ -30,10 +30,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
-
-## My process
+- Solution URL: [Solution Page](https://www.frontendmentor.io/solutions/tip-calculator-solution-VNDjlJwai)
+- Live Site URL: [Live Site](https://crisdevs.github.io/tip-calculator-app-main/)
 
 ### Built with
 
@@ -94,4 +92,4 @@ For my next project, I would love to focus on strengthening my Javascript OOP co
 
 ## Author
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
+- Frontend Mentor - [@crisdevs]([https://www.frontendmentor.io/profile/yourusername](https://www.frontendmentor.io/profile/crisdevs)https://www.frontendmentor.io/profile/crisdevs)
