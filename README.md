@@ -92,4 +92,4 @@ For my next project, I would love to focus on strengthening my Javascript OOP co
 
 ## Author
 
-- Frontend Mentor - [@crisdevs]([https://www.frontendmentor.io/profile/yourusername](https://www.frontendmentor.io/profile/crisdevs)https://www.frontendmentor.io/profile/crisdevs)
+- Frontend Mentor - [@crisdevs](https://www.frontendmentor.io/profile/crisdevs)
